@@ -14,5 +14,13 @@ def index():
     blogs = Blog.query.all()
     return render_template('index.html', title = title, quote = quotes,blogs=blogs)
 
+@main.route('/blog/new', methods = ['GET','POST'])    
+@login_required
+def new_blog():
+        form = CreateBlogForm()
+        
+
+
+
 
 
