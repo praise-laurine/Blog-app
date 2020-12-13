@@ -1,5 +1,6 @@
 from flask import render_template,request,url_for,redirect,flash,abort
 from . import main
+from flask_login import login_required, current_user
 from ..models import *
 from .forms import UpdateProfile
 from .. import db,photos
@@ -18,7 +19,26 @@ def index():
 @main.route('/blog/new', methods = ['GET','POST'])    
 @login_required
 def new_blog():
-        form = CreateBlogForm()
+    subscribers = Subscriber.query.all()
+    form = CreateBlogForm()
+    if form.validate_on_submit():
+        title = form.title.data
+        content = form.content.data
+        user_id =  current_user._get_current_object().id
+        blog = Blog(title=title,content=content,user_id=user_id)
+        blog.save()
+       
+        for subscriber in subscribers:
+            mail_message("New Blog Post","email/new_blog",subscriber.email,blog=blog)
+        return redirect(url_for('main.index'))
+        flash('Anew blog has been posted by you')
+    
+    return render_template('newblog.html', form = form)
+    
+
+
+
+
 
 @main.route('/user/<uname>')
 def profile(uname):
