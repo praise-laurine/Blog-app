@@ -17,7 +17,9 @@ class User(UserMixin,db.Model):
     email = db.Column(db.String(255),unique = True,index = True)
     username = db.Column(db.String(255))
     role_id = db.Column(db.Integer,db.ForeignKey('roles.id'))
-    pass_secure = db.Column(db.String(255))
+    bio = db.Column(db.String(255))
+    profile_pic_path = db.Column(db.String())
+    password_secure = db.Column(db.String(255))
 
     @property
     def password(self):
