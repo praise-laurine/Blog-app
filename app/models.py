@@ -20,6 +20,8 @@ class User(UserMixin,db.Model):
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String())
     password_secure = db.Column(db.String(255))
+    blog = db.relationship('Blog',backref = 'user',lazy = "dynamic")
+
 
     @property
     def password(self):
@@ -35,6 +37,27 @@ class User(UserMixin,db.Model):
 
     def __repr__(self):
         return f'User {self.username}'
+
+class Blog(db.Model):
+    __tablename__ = 'blogs'
+    id = db.Column(db.Integer,primary_key=True)
+    title = db.Column(db.String)
+    content = db.Column(db.Text(),nullable=False)
+    posted = db.Column(db.DateTime,default=datetime.utcnow)
+    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+    comment = db.relationship('Comment', backref='blog', lazy='dynamic')
+
+    def save_blog(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_blog(cls,id):
+        blog = Blog.query.filter_by(id=id).first()
+        return blog
+
+
+
 
 
 class Role(db.Model):
