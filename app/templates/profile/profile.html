@@ -1,45 +1,46 @@
 {% extends 'base.html'%}
-{% import 'bootstrap/wtf.html' as wtf %}
+
 {% block content %}
-<div class="container">
-  <div class="row">
-    <div class="col-md-1"></div>
-    <div class="col-md-4 black">
-        <div class="content-section mt-4">
-            {% for message in get_flashed_messages() %}
-            <div class="alert alert-success">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            {{ message }}
-            </div>
-            {% endfor %}
-            {% if errors %}
-              {% for error in errors %}
-                <span class="text-danger">{{ error }}</span></br>
-              {% endfor %}
-            {%endif%}
-    <div class="card testimonial-card">
-    <div class="card-up indigo lighten-1"></div>
-    <div class="avatar mx-auto white">
-      <img src="{{profile_pic_path}}" class="rounded-circle account-img mt-2" alt="woman avatar">
-    </div>
-    <div class="card-body">
-      <h4 class="card-title text-center">{{current_user.username|title}}</h4>
-      <hr>
-      <p> {{current_user.email}} </p>
-      <p><i class="fas fa-quote-left"></i> {{current_user.bio}} <i class="fas fa-quote-right"></i> </p>
-      <button class="btn btn-sm btn-info" id="showform"> Update Profile</button>
-    </div>
-      
-      </div>
-    </div>
-  </div>
-  <div class="col-md-6">
-      <div class="container mt-4" >
-        <div id="profileupdate">
-          <h2>Update Your Profile Here</h2>
-            {{wtf.quick_form(form)}}
-        </div>
-      </div>
-  </div>
+<div class="container col-xs-12 col-sm-4 col-md-4 col-lg-4 " style="background-color: white; margin-top: 50px;">
+<div class="card">
+<!-- displaying  Username-->
+<div class="card-header" style="text-align: center">
+<h3> {{user.username| capitalize}} </h3>
+<hr>
+<!--Displaying user bio-->
+{% if user.bio %}
+    <p class="card-body"> {{user.bio}}</p>
+    <hr>
+{%else%}
+    <p class="card-body"> {{user.username| capitalize}} has no bio </p>
+    <hr>
+{% endif %}
+
+
+
+{% if user == current_user %}
+    <a class="mt-2 pt-2 btn btn-outline-info card-footer" href="{{url_for('main.update_profile',uname=user.username)}}">Edit profile</a>
+{% endif %}
 </div>
+</div>
+<br>
+<!--Display profile photo-->
+<div class="card" style="margin-top: 30px">
+
+{% if user.profile_pic_path %}
+<img src="{{url_for('static',filename=user.profile_pic_path)}}" alt="" class="img-thumbnail card-img-top">
+{%else%}
+<p class="card-header">No profile picture</p>
+{% endif %}
+
+{% if user == current_user %}
+<form class="mt-2 pt-2"  action="{{url_for('main.update_pic',uname=user.username)}}" method="post" enctype = "multipart/form-data">
+
+<input class="form-control-file card-footer" type="file"  name="photo" class="form-control" required>
+<input class="mt-2 pt-2 btn btn-outline-info card-footer" style="margin-left: 20px" type="submit">
+</form>
+{% endif %}
+</div>
+</div>
+
 {% endblock %}

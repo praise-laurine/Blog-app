@@ -1,4 +1,4 @@
-#!/home/moringa/Desktop/blog/virtual/bin/python
+#!/home/moringa/Desktop/blogging/virtual/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

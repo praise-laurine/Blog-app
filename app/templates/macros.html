@@ -1,1 +1,25 @@
+{% macro displayBlogs(blogs)%}
+    {%for blog in blogs%}
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 " style="margin-top: 30px">
+            <div class="card">
+                    <br>
+                    <h4 class="card-header" >Blog title: {{blog.blog_title}}</h4>
+                    <br>
+                    <p class="card-body" >Blog Content: {{blog.blog_content| truncate(100)}}</p>
+                    <p class="card-footer" >Written by:  {{blog.username}} <a href="/blog/{{blog.id}}" class="btn btn-primary pull-left">Read more</a> </p>
+            </div>
+        </div>
+    {%endfor%}
+{%endmacro%}
+
+{%macro displayComments(comments_list)%}
+    {%for comment in comments_list%}
+        <div class="col-md-12">
+            <br>
+            <h5>User: {{comment.user.username}}</h5>
+            <p>Comment: {{comment.comment}}</p>
+            <hr>
+        </div>
+    {%endfor%}
+{%endmacro%}
 

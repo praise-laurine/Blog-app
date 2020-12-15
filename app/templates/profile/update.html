@@ -2,8 +2,9 @@
 {% import 'bootstrap/wtf.html' as wtf %}
 
 {% block content %}
-<div class="container">
-  
-</div>
-{% endblock %}
 
+<div class="container mt-4 pt-4 mb-4 pb-4" style="background-color: white">
+    {{wtf.quick_form(form)}} 
+</div>
+
+{% endblock %}

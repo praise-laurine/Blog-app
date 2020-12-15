@@ -1,1 +1,57 @@
+{% extends 'base.html' %}
+{% import 'macros.html' as macro %}
+{% from 'macros.html' import displayBlogs as db%}
+<!-- Styles block -->
 
+
+<!-- Content block -->
+{%block content%}
+<div class="container-fluid text-center" style="background-image: url('../static/images/bg.png'); background-repeat: no-repeat; background-size: cover; background-position: center center; color: black; padding: 55px 25px;   font-family: 'Gabriela', serif; ">
+    <h2 style="font-size: 20px; text-align: center; font-weight: bolder;">Welcome To My-Personal Blog Post Website</h2>
+    <h2>A place where you get to read other people's blogs and learn new things from each other</h2>
+<div>
+
+<div>
+<button><a class="btn btn-sm-btn-info" style="font-weight: bolder; padding-top: 15px;" href="{{url_for('main.new_blog')}}">Post Blog</a></button>
+</div>
+        
+</div>
+<br>
+<br>
+<div class="row" style="  font-family: 'Gabriela', serif;">
+    <div class="col-md-4 ">
+        <br>
+        <br>
+        <div class="card">
+            <h4 class="card-header" style="  background-color: #6bc5d2;">Quote By: {{ quote.author }}</h4>
+            <p class="card-body">{{ quote.quote }}</p>
+        </div>
+    </div>
+        <br>
+        <br>
+    <div class="col-md-4" style="top: 50px;">
+        <div class="card">
+            <h4 class="card-header" style="  background-color: #6bc5d2;">Quote By: {{ quote1.author }}</h4>
+            <p class="card-body">{{ quote1.quote }}</p>
+        </div>
+        <br>
+        <br>
+    </div>
+    <div class="col-md-4" style="top: 50px;">
+        <div class="card">
+            <h4 class="card-header" style="background-color: #6bc5d2;">Quote By: {{ quote2.author }}</h4>
+            <p class="card-body">{{ quote2.quote }}</p>
+        </div>
+        <br>
+        <br>
+    </div>
+        
+</div>
+<!-- </div> -->
+<div class="card-body">
+<div class="row">
+    {{db(blogs)}}
+</div>
+</div>
+
+{%endblock%}

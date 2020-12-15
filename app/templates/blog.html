@@ -1,0 +1,65 @@
+{% extends 'base.html'%}
+{% import 'macros.html' as macro%}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{%block styles%}
+    {{ super() }}
+    <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Ranga" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Langar&display=swap" rel="stylesheet">
+{%endblock%}
+<!-- Content block -->
+{%block content%}
+<div class="container" style="font-family: 'Langar', cursive;">
+    <div class="card" style="margin-top: 30px">
+        
+        <h3 class="card-header" style="font-weight: bolder; font-style: italic;">Blog title: {{blog.blog_title}}</h3>
+        
+        <p class="card-body" style="font-weight: bolder; font-style: italic;">Blog content: {{blog.blog_content}}</p>
+        <span>
+        <p class="card-footer" style="font-weight: bolder; color: blueviolet;">Posted on {{date}} by: {{blog.username| capitalize}}</p>
+        <a style="margin-left: 20px" href="/blog/{{blog.id}}?like=1"><br><br>
+            <i class="far fa-thumbs-up"></i>
+     </a>{{blog.likes}} <a href="/blog/{{blog.id}}?dislike=1"><br><br>
+       <i class="far fa-thumbs-down"></i></button>
+        </a>{{blog.dislikes}}</span>
+           {% if blog.username == current_user.username %}
+            <div>
+                <a class="btn btn-success btn-sm mt-1 mb-1" href="{{ url_for('main.update_blog', id=blog.id) }}">Update blog</a>
+                <button type="button" class="btn btn-danger btn-sm m-1"  data-toggle="modal" data-target="#deleteModal">Delete blog</button>
+                
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Are you sure you want to delete this blog?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Cancel">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <form action="{{ url_for('main.delete_blog', id=blog.id) }}" method="POST">
+                <input class="btn btn-danger" type="submit" value="Delete">
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card" style="margin-top: 20px">
+        <h4 class="card-header" style="font-weight: bolder; text-align: center; font-family: 'Langar', cursive;">Comments</h4>
+        
+        {% if current_user.is_authenticated %}
+            {{ wtf.quick_form(comment_form) }}
+        {%endif%}
+        {{macro.displayComments(comments)}}
+    </div>
+</div>
+</div>
+{%endblock%}

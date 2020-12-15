@@ -1,30 +1,27 @@
-<div class="navbar navbar-inverse" role="navigation navbar-light bg-dark" >
-  <div class="container-fluid" id="nav">
+ <div class="navbar navbar-expand-lg navbar-dark bg-dark" role="navigation" style="color: blue;">
+  <div class="container-fluid">
       <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/">My-Blog</a>
+          
+          <a class="navbar-brand nav-link btn btn-outline-white " href="/" style="color:white; font-weight:bolder; ">
+              <span class="glyphicon glyphicon-home"></span> Home
+          </a>
       </div>
-      <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="/">Home</a></li>
-          </ul>
-
-          <ul class="nav navbar-nav navbar-right">
+      <div>
+          <ul class="nav navbar-nav navbar-right mr-auto">
               {% if current_user.is_authenticated %}
-              <li style="color:white;padding:15px;">{{current_user.username}}</li>
-              <li><a href="{{url_for('main.profile',uname=current_user.username)}}">Profile</a></li>
-              <li><a href="{{url_for('auth.logout')}}">Sign out</a></li>
+              <li><a class="navbar-brand nav-link btn btn-outline-white" href="{{url_for('main.profile',uname=current_user.username)}}" style="color:white; font-weight:bolder;margin-left: 1250px ">Profile</a></li>
+              <li><a class="navbar-brand nav-link btn btn-outline-white" href="{{url_for('main.profile',uname=current_user.username)}}" style="color:white; font-weight:bolder; margin-left: 30px">{{current_user.username}}</a></li>
+              <li><a class="navbar-brand nav-link btn btn-outline-white" href="{{url_for('auth.logout')}}" style="color:white; font-weight:bolder; margin-left: 30px">Sign out</a></li>
               {% else %}
-              <li><a href="{{url_for('auth.login')}}">Sign in</a></li>
+              <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+              <li><a class="navbar-brand nav-link btn btn-outline-info" href="{{url_for('auth.login')}}" style="color:white; font-weight:bolder;"><i class="fa fa-sign-in" aria-hidden="true"></i>Log in</a></li>
+              <li><a class="navbar-brand nav-link btn btn-outline-info" href="{{url_for('auth.register')}}" style="color:white; font-weight:bolder;">Register</a></li>
               {%endif%}
-            </ul>
-          
-          
+          </ul>
       </div>
+      
   </div>
-</div>
+</div> 
+
+
+
