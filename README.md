@@ -3,7 +3,7 @@
 ### Author: [praise-laurine](https://github.com/praise-laurine)
 
 ## Description
-This is a flask application that allows writers to post blogs, edit and delite blogs. It also allows users who have signed up to comment on the blogs that has been posted by a writer. It also allows a person to subscribed to recieve email everytime a new blog is posted by a writer.
+This is a flask application that allows writers to post blogs, edit and delite blogs. It also allows users who have signed up to comment on the blogs that has been posted by a writer. It also allows a person to to like or dislike a blog posted.
 
 # Set Up & Instalation Guide
 - After my repository's name, Select Clone/download.
